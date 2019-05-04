@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cheeky.name" . }}-redis
+  labels:
+    app.kubernetes.io/name: {{ include "cheeky.name" . }}-redis
+    helm.sh/chart: {{ include "dragonchain-k8s.chart" . }}
+    app.kubernetes.io/instance: {{ include "cheeky.name" . }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/part-of: dragonchain
+    app.kubernetes.io/component: persistent-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "cheeky.name" . }}-redis
+  strategy:
+      type: Recreate
+  template:
+    metadata:
+      name: {{ include "cheeky.name" . }}-redis
+      labels:
+        app.kubernetes.io/name: {{ include "cheeky.name" . }}-redis
+        helm.sh/chart: {{ include "cheeky.chart" . }}
+        app.kubernetes.io/instance: {{ include "cheeky.name" . }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app.kubernetes.io/part-of: dragonchain
+        app.kubernetes.io/component: persistent-redis
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+{{- if not .Values.isMinikube }}
+        sysctls:
+        - name: net.core.somaxconn
+          value: "1024"
+{{- end }}
+      containers:
+        - name: {{ include "cheeky.name" . }}-redis
+          image: "redis:5.0"
+          imagePullPolicy: IfNotPresent
+          command: ["redis-server"]
+          args: ["/usr/local/etc/redis/redis.conf"]
+          env:
+            - name: MASTER
+              value: "true"
+          ports:
+            - name: http
+              containerPort: 6379
+          resources:
+{{ toYaml .Values.redis.resources | indent 12 }}
+          volumeMounts:
+            - mountPath: /usr/local/etc/redis
+              name: config
+            - mountPath: /data
+              name: storage
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "cheeky.name" . }}-redis-configmap
+            items:
+              - key: redis-config
+                path: redis.conf
+        - name: storage
+          persistentVolumeClaim:
+            claimName: {{ include "cheeky.name" . }}-redis-volume
