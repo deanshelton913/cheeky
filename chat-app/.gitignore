@@ -3,7 +3,7 @@ build
 test
 src/**.js
 .idea/*
-
+dump.rdb
 coverage
 .nyc_output
 *.log

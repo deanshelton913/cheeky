@@ -1,10 +1,16 @@
 import { Validator } from "../Validator";
 import * as handler from "../handlers"
-export async function router(redis, msg) {
+import { FailureByDesign } from "../FailureByDesign";
+import { ModifiedWebsocket } from "../types/cheeky";
+
+export async function router(ws: ModifiedWebsocket, msg: string) {
   const { code, parameters } = Validator.validateWebsocketMessage(String(msg))
-  return {
-    ROOM_CREATE: handler.roomCreate,
+  const func = {
+    ROOM_CREATE: handler.channelCreate,
     ROOM_SUBSCRIBE: handler.roomSubscribe,
     ROOM_KICK_USER: handler.roomKickUser,
-  }[code](redis, parameters);
+  }[code];
+
+  if(!func) throw new FailureByDesign('BAD_REQUEST', `"${code}" is not a valid code.`)
+  return func(ws, parameters);
 }
