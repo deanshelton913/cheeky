@@ -19,8 +19,10 @@ const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 8081;
 const expressApp = express();
 expressApp.use(bodyParser.json())
 expressApp.get('/ping', (_req: any, res: any) => { res.status(200).send('pong') });
+expressApp.get('/', asyncMiddleware(handler.homepage));
+expressApp.get('/channel', asyncMiddleware(handler.channelList));
+expressApp.post('/user', asyncMiddleware(handler.userCreate));
 expressApp.post('/channel', asyncMiddleware(handler.channelCreate));
-expressApp.get('/channel', asyncMiddleware(handler.listChannels));
 expressApp.use(notFoundMiddleware)
 expressApp.listen(Number(HTTP_PORT));
 console.log('Express now listening on port', HTTP_PORT);

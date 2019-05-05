@@ -1,11 +1,15 @@
 import channelCreate from  './channel-create'
 import roomSubscribe from './roomSubscribe';
 import roomKickUser from './roomKickUser';
-import listChannels from './channel-list';
+import channelList from './channel-list';
+import homepage from './homepage';
+import userCreate from './user-create';
 
 export {
   channelCreate,
-  listChannels,
+  channelList,
   roomSubscribe,
   roomKickUser,
+  homepage,
+  userCreate,
 }
