@@ -19,8 +19,6 @@ const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 8081;
 const expressApp = express();
 expressApp.set('views', __dirname + '/views');
 expressApp.set('view engine', 'jsx');
-expressApp.engine('jsx', require('express-react-views').createEngine());
-expressApp.use(require('serve-static')(__dirname + '/../../static'));
 expressApp.use(require('cookie-parser')());
 expressApp.use(require('express-session')({ secret: 'sea hot dog is not worth it', resave: true, saveUninitialized: true }));
 expressApp.use(passport.initialize());
@@ -47,9 +45,15 @@ expressApp.get('/auth/facebook', passport.authenticate('facebook'));
 expressApp.get('/auth/facebook/callback', facebookAuthenticated, function(_req, res) { res.redirect('/#welcome'); });
 
 // UI Routes
-expressApp.get('/', (req: any, res) => {
-  res.send('hi!'+ req.user)
-});
+// expressApp.get('/', (_req: any, res) => {
+//   res.sendFile(__dirname + '/views/index.html')
+// });
+expressApp.use(require('serve-static')(__dirname + '/../../static'));
+expressApp.set('views', __dirname + '/views');
+expressApp.set('view engine', 'jsx');
+var options = { beautify: true };
+expressApp.engine('jsx', require('express-react-views').createEngine(options));
+expressApp.get('/', require('./routes').index);
 
 expressApp.get('/api/ping', (_req: any, res: any) => { res.status(200).send('pong') });
 expressApp.get('/api/channel', asyncMiddleware(handler.channelList));
