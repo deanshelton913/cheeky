@@ -32,7 +32,8 @@
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "trash build test",
     "all": "run-s reset test cov:check doc:html",
-    "prepare-release": "run-s all version doc:publish"
+    "prepare-release": "run-s all version doc:publish",
+    "start": "node ./build/main/index.js"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -65,8 +66,6 @@
     "express-react-views": "^0.11.0",
     "express-session": "^1.16.1",
     "ioredis": "^4.9.0",
-    "passport": "^0.4.0",
-    "passport-facebook": "^3.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "redis": "^2.8.0",

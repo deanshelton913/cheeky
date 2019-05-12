@@ -1,4 +1,5 @@
 import { FailureByDesign } from "../FailureByDesign";
+import express from 'express';
 
 interface SurfaceError {
   error: string;
@@ -9,11 +10,21 @@ interface SurfaceError {
  * Error Handling Middleware
  * Purpose: Handle all surface errors in a single place.
  */
-export default function errorHandler (err: Error | FailureByDesign) {
+export default function globalErrorHandler(err: Error | FailureByDesign, _req: any, res: express.Response, _next: express.NextFunction){
+  const surfaceResponse = getSurfaceError(err);
+  res.status(surfaceResponse.statusCode).send({ error: surfaceResponse.error })
+}
+
+/**
+ * getSurfaceError
+ * This is the only type of error that should ever surface to the users.
+ */
+function getSurfaceError (err: Error | FailureByDesign) {
   if (isFailureByDesign(err)) {
     const code = err.code
     const codeStatusMap = {
       'BAD_REQUEST': 400,
+      'UNAUTHORIZED': 401,
       'NOT_FOUND': 404,
       'MISCONFIGURATION': 500
     } as {[key: string]: number}

@@ -1,0 +1,1 @@
+export const logRequests = (a,_b,c) => { console.log(a.method, a.url); c(); }

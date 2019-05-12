@@ -1,12 +1,2 @@
 .app {
-  text-align: center;
-}
-.logo-wrapper {
-  padding: 20px;
-  margin: 0 auto;
-  height:300px;
-  max-width: 300px;
-  background-position: top;
-  background-size: cover;
-  background-image: url('./cheeky-logo.png');
-}
+  text-align: center; }

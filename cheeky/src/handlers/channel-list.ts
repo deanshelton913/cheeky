@@ -1,6 +1,6 @@
 import { Validator } from "../Validator";
 import { Channel } from "../data-models/Channel";
-import express = require("express");
+import express from "express"
 
 export default async function channelCreate(req: express.Request, res) {
   console.log('Room List.', req.query)

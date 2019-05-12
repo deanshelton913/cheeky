@@ -1,4 +1,4 @@
-type ErrorCode = 'BAD_REQUEST' | 'NOT_FOUND' | 'MISCONFIGURATION'
+type ErrorCode = 'BAD_REQUEST' | 'NOT_FOUND' | 'MISCONFIGURATION' | 'UNAUTHORIZED'
 
 export class FailureByDesign extends Error {
   code: ErrorCode;

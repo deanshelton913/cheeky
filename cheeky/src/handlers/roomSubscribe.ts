@@ -1,6 +1,5 @@
-import expressWs = require("express-ws");
 
-export default async function roomCreate(ws, req: expressWs.WebsocketRequestHandler) {
+export default async function roomCreate(ws, req: any) {
   ws.on('connect', () => {
     console.log('connected')
     ws.send('Hiya!')

@@ -1,48 +1,57 @@
-/*global FB*/
-import React from 'react';
+import React, { createContext } from 'react';
 import './App.css';
-interface DomWindow extends Window {
-  fbAsyncInit: Function;
+import { initFbApi, DomWindow } from './initFb';
+import Layout from './Layout';
+const { Provider } = createContext({});
+
+interface MyProps {}
+interface MyState {
+  isLoading: boolean;
+  isLoggedIn: boolean;
 }
-export class App extends React.Component {
+
+export class App extends React.Component<MyProps, MyState> {
+
   constructor(props: any) {
     super(props);
     this.state = {
+      isLoading: true,
       isLoggedIn: false
     }
   }
 
-  componentDidMount() {
-    (window as DomWindow).fbAsyncInit = function() {
-      FB.init({
-        appId      : '2160906307324498',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v3.3'
-      });
+  componentDidMount = async () => {
+    const {accessToken, userID, status} = await initFbApi() as any;
+    console.log({accessToken, userID, status})
+    await fetch('http://localhost:8080/protected', {headers: {Authorization: `${userID} ${accessToken}`}})
 
-      FB.AppEvents.logPageView();
-
-      FB.getLoginStatus(function(response) {
-        console.log(response)
-      });
-    };
+    this.setState({
+      isLoading: false,
+      isLoggedIn: (status === 'connected')
+    })
   }
 
-  componentClicked(){}
-  responseFacebook(){}
+  componentDidUpdate = () => {
+    (window as DomWindow).fbAsyncInit()
+  }
 
   render () {
     return (
       <div className="app">
-        <div className="logo-wrapper">
-          <div
-            className="fb-like"
-            data-share="true"
-            data-width="450"
-            data-show-faces="true">
-          </div>
-        </div>
+        <Provider value={{ state: this.state, }} >
+          {this.state.isLoggedIn
+            ? <Layout />
+            : <div className="logo-wrapper">
+                <div className="fb-login-button"
+                  data-width=""
+                  data-size="large"
+                  data-button-type="continue_with"
+                  data-auto-logout-link="true"
+                  data-use-continue-as="true"
+                  />
+              </div>
+            }
+        </Provider>
       </div>
     );
   }

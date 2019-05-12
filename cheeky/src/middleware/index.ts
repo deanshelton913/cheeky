@@ -1,4 +1,4 @@
-import errorHandler from "./errorHandler";
+import globalErrorHandler from "./errorHandler";
 import notFoundMiddleware from "./notFoundMiddleware";
 
-export { errorHandler, notFoundMiddleware }
+export { globalErrorHandler, notFoundMiddleware }

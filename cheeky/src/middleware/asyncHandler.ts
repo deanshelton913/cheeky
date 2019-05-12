@@ -1,4 +1,4 @@
-import express = require("express");
+import express from "express"
 
 
 const asyncHandler = (fn: any) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
