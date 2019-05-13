@@ -1,6 +1,6 @@
 /*global FB*/
 import React from 'react';
-import './Layout.css';
+import './Layout.scss';
 
 interface MyProps {
 
@@ -12,16 +12,14 @@ interface MyState {
 
 
 export class Layout extends React.Component<MyProps, MyState> {
-  constructor(props: any){
-    super(props);
-    this.state = {
-      photos: []
-    }
-  }
+  // constructor(props: any){
+  //   super(props);
+  //   this.state = {
+  //     photos: []
+  //   }
+  // }
   componentDidMount = () => {
-    FB.api('/me/photos?fields=source', ({data}: any) => {
-      this.setState({ photos: data })
-    })
+
   }
 
   logout = () => {
@@ -32,11 +30,20 @@ export class Layout extends React.Component<MyProps, MyState> {
 
   render = () =>
     <div className="layout">
-    <h1>I am a heading</h1>
-      <div className="grid">
-        {this.state.photos.map((p) => <img className="selectableImage" src={p.source} alt="bananas"/>)}
+      <div className="content-area">
+        <div className="settings-gear">
+          <img src="./gear.png" alt="settings"/>
+        </div>
+        <div className="logo"></div>
+        <div className="account">
+          <img src="./test.png" alt="account"/>
+        </div>
+        <main className="body">
+        </main>
+        <footer>
+          <button className="logout" onClick={this.logout}>LOGOUT</button>
+        </footer>
       </div>
-      <div><button className="logout" onClick={this.logout}>LOGOUT</button></div>
     </div>
 }
 

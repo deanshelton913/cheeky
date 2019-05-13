@@ -1,33 +1,36 @@
 import React, { createContext } from 'react';
-import './App.css';
+import './App.scss';
 import { initFbApi, DomWindow } from './initFb';
 import Layout from './Layout';
+import CheekyClient from './data-access/cheeky-client';
 const { Provider } = createContext({});
 
 interface MyProps {}
 interface MyState {
   isLoading: boolean;
   isLoggedIn: boolean;
+  cheekyClient?: CheekyClient
 }
 
 export class App extends React.Component<MyProps, MyState> {
-
   constructor(props: any) {
     super(props);
+
     this.state = {
       isLoading: true,
-      isLoggedIn: false
+      isLoggedIn: false,
+      cheekyClient: undefined,
     }
   }
 
   componentDidMount = async () => {
     const {accessToken, userID, status} = await initFbApi() as any;
-    console.log({accessToken, userID, status})
-    await fetch('http://localhost:8080/protected', {headers: {Authorization: `${userID} ${accessToken}`}})
-
     this.setState({
+      cheekyClient: new CheekyClient(accessToken, userID),
       isLoading: false,
       isLoggedIn: (status === 'connected')
+    }, () => {
+      console.log('updated...', this.state.isLoggedIn)
     })
   }
 

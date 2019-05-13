@@ -1,0 +1,72 @@
+.layout {
+  max-width: 480px;
+  margin: 0 auto;
+  border: 1px solid green;
+  background-color: #fff;
+
+  .content-area {
+    display: grid;
+    grid-template-areas: "header header header" "body body body" "footer footer footer";
+    padding: 10px;
+
+    .account, .logo, .settings-gear {
+      grid-area: "header";
+      height: 64px;
+      justify-items: center;
+      width: 1fr;
+    }
+
+    .logo {
+      background: url("/logo.png") top center no-repeat;
+      background-size: contain;
+    }
+
+    .settings-gear {
+      img {
+        display: block;
+        overflow: hidden;
+        border-radius: 50%;
+        object-fit: cover;
+        height: 64px;
+        width: 64px;
+
+        &:hover {
+          cursor: pointer;
+          animation: rotate-slightly 1s;
+        }
+      }
+    }
+
+    .account {
+      text-align: right;
+      img {
+        overflow: hidden;
+        border-radius: 50%;
+        object-fit: cover;
+        height: 64px;
+        width: 64px;
+      }
+    }
+
+
+
+    /* Set the image to fill its parent and make transparent */
+
+    main {
+      grid-area: body;
+
+    }
+
+
+    footer {
+      grid-area: "footer"
+    }
+  }
+}
+
+
+
+@keyframes rotate-slightly {
+  0%   { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}

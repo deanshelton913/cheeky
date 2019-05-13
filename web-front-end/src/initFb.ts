@@ -1,3 +1,4 @@
+/*global FB*/
 export interface DomWindow extends Window {
   fbAsyncInit: Function;
 }
@@ -16,9 +17,8 @@ export const initFbApi = async () => {
         FB.AppEvents.logPageView();
 
         FB.getLoginStatus((response) => {
-          console.log(response)
-          const {accessToken, userID } = response.authResponse
-          resolve({accessToken, userID, status: response.status});
+          const { status, authResponse: {accessToken, userID} } = response
+          resolve({accessToken, userID, status});
         });
       }
     } catch (e) {
