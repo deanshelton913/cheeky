@@ -19,7 +19,7 @@ export default function globalErrorHandler(err: Error | FailureByDesign, _req: a
  * getSurfaceError
  * This is the only type of error that should ever surface to the users.
  */
-function getSurfaceError (err: Error | FailureByDesign) {
+export function getSurfaceError (err: Error | FailureByDesign) {
   if (isFailureByDesign(err)) {
     const code = err.code
     const codeStatusMap = {

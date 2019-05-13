@@ -1,5 +1,5 @@
 import { router } from ".";
-import { errorHandler } from "../middleware";
+import { getSurfaceError } from "../middleware/errorHandler";
 import { ModifiedWebsocket } from "../types/cheeky";
 import Redis from "ioredis";
 import {closeHandler} from '.'
@@ -29,7 +29,7 @@ const receiveMessageFromUser = async (ws, msg: string) => {
     const {channel, message} = await router(ws, msg);
     await ws.pub.publish(`ws:${channel}`, message)
   } catch (e) {
-    const surfaceError = errorHandler(e);
+    const surfaceError = getSurfaceError(e);
     ws.send(JSON.stringify(surfaceError))
   }
 }

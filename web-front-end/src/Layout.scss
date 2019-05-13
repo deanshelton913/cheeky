@@ -1,19 +1,26 @@
+$blue1: #280f41;
+
+html, body, #root, .app {height: 100%}
 .layout {
+  font-size: 15px;
+  height: 100%;
   max-width: 480px;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
-  border: 1px solid green;
   background-color: #fff;
 
-  .content-area {
-    display: grid;
-    grid-template-areas: "header header header" "body body body" "footer footer footer";
+  header {
+    display: flex;
+    border-bottom: 12px solid $blue1;
     padding: 10px;
+
 
     .account, .logo, .settings-gear {
       grid-area: "header";
       height: 64px;
       justify-items: center;
-      width: 1fr;
+      flex: 1;
     }
 
     .logo {
@@ -22,13 +29,17 @@
     }
 
     .settings-gear {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
       img {
         display: block;
         overflow: hidden;
         border-radius: 50%;
         object-fit: cover;
-        height: 64px;
-        width: 64px;
+        height: 54px;
+        width: 54px;
 
         &:hover {
           cursor: pointer;
@@ -39,34 +50,70 @@
 
     .account {
       text-align: right;
-      img {
-        overflow: hidden;
-        border-radius: 50%;
-        object-fit: cover;
-        height: 64px;
-        width: 64px;
-      }
-    }
 
-
-
-    /* Set the image to fill its parent and make transparent */
-
-    main {
-      grid-area: body;
-
-    }
-
-
-    footer {
-      grid-area: "footer"
     }
   }
+
+  main {
+    flex: 4;
+    padding: 20px;
+    overflow-y: scroll;
+  }
+
 }
 
-
+img.profile {
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 54px;
+  width: 54px;
+  border: 4px solid $blue1;
+}
 
 @keyframes rotate-slightly {
   0%   { transform: rotate(90deg); }
   100% { transform: rotate(0deg); }
+}
+
+.input {
+  display: flex;
+  input {
+    padding: 5px 5px 5px 10px;
+    font-size: 1.1em;
+    flex: 4 1;
+  }
+  button {
+    flex: 1;
+  }
+}
+*:focus {
+  outline: none;
+}
+
+.speech-bubble {
+  position: relative;
+  min-height: 60px;
+  padding: 10px 15px 10px 90px;
+  border: 1px solid $blue1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 8px 6px -6px black;
+  margin-bottom: 15px;
+  border-radius: 50px;
+
+  img.profile {
+    position: absolute;
+    left:5px;
+  }
+
+  &.right {
+    padding: 10px 90px 10px 15px;
+    text-align: right;
+    img.profile {
+      left: auto;
+      right:5px;
+    }
+  }
 }

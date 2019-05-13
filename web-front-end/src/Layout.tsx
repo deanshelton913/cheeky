@@ -12,12 +12,6 @@ interface MyState {
 
 
 export class Layout extends React.Component<MyProps, MyState> {
-  // constructor(props: any){
-  //   super(props);
-  //   this.state = {
-  //     photos: []
-  //   }
-  // }
   componentDidMount = () => {
 
   }
@@ -30,19 +24,47 @@ export class Layout extends React.Component<MyProps, MyState> {
 
   render = () =>
     <div className="layout">
-      <div className="content-area">
+      <header>
         <div className="settings-gear">
-          <img src="./gear.png" alt="settings"/>
+          <img src="./gear.svg" alt="settings" />
         </div>
         <div className="logo"></div>
         <div className="account">
-          <img src="./test.png" alt="account"/>
+          <a href="/me">
+            <img className="profile" src="./test.png" alt="account"/>
+          </a>
         </div>
-        <main className="body">
-        </main>
-        <footer>
-          <button className="logout" onClick={this.logout}>LOGOUT</button>
-        </footer>
+      </header>
+      <main>
+        <div className="speech-bubble">
+          <img className="profile" src="./test.png" alt="account"/>
+          <p>Testing, testing</p>
+        </div>
+        <div className="speech-bubble right">
+          <img className="profile" src="./test.png" alt="account"/>
+          <p>Testing one two three.</p>
+        </div>
+        <div className="speech-bubble">
+          <img className="profile" src="./test.png" alt="account"/>
+          <p>I am a chat bubble</p>
+        </div>
+        <div className="speech-bubble">
+          <img className="profile" src="./test.png" alt="account"/>
+          <p>I am a chat bubble</p>
+        </div>
+        <div className="speech-bubble">
+          <img className="profile" src="./test.png" alt="account"/>
+          <p>I am a chat bubble</p>
+        </div>
+        <div className="speech-bubble">
+          <img className="profile" src="./test.png" alt="account"/>
+          <p>I am a chat bubble</p>
+        </div>
+
+      </main>
+      <div className="input">
+        <input type="text" />
+        <button>Send</button>
       </div>
     </div>
 }
