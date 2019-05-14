@@ -1,6 +1,9 @@
 $blue1: #280f41;
 
 html, body, #root, .app {height: 100%}
+html {
+  font-family: 'Roboto', sans-serif;
+}
 .layout {
   font-size: 15px;
   height: 100%;
@@ -12,15 +15,22 @@ html, body, #root, .app {height: 100%}
 
   header {
     display: flex;
-    border-bottom: 12px solid $blue1;
+    border-bottom: 2px solid $blue1;
     padding: 10px;
 
 
-    .account, .logo, .settings-gear {
-      grid-area: "header";
+    .account, .logo, .chats {
       height: 64px;
       justify-items: center;
       flex: 1;
+      a {
+        display: block;
+      }
+    }
+
+
+    .account {
+      text-align: left;
     }
 
     .logo {
@@ -28,29 +38,22 @@ html, body, #root, .app {height: 100%}
       background-size: contain;
     }
 
-    .settings-gear {
+    .chats {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      text-align: right;
 
       img {
-        display: block;
         overflow: hidden;
-        border-radius: 50%;
         object-fit: cover;
         height: 54px;
         width: 54px;
 
         &:hover {
           cursor: pointer;
-          animation: rotate-slightly 1s;
         }
       }
-    }
-
-    .account {
-      text-align: right;
-
     }
   }
 
@@ -58,8 +61,9 @@ html, body, #root, .app {height: 100%}
     flex: 4;
     padding: 20px;
     overflow-y: scroll;
+    background-image: url("/chat-bg.jpg");
+    background-size: cover;
   }
-
 }
 
 img.profile {
@@ -68,7 +72,7 @@ img.profile {
   object-fit: cover;
   height: 54px;
   width: 54px;
-  border: 4px solid $blue1;
+  border: 2px solid $blue1;
 }
 
 @keyframes rotate-slightly {
@@ -89,31 +93,4 @@ img.profile {
 }
 *:focus {
   outline: none;
-}
-
-.speech-bubble {
-  position: relative;
-  min-height: 60px;
-  padding: 10px 15px 10px 90px;
-  border: 1px solid $blue1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-shadow: 0 8px 6px -6px black;
-  margin-bottom: 15px;
-  border-radius: 50px;
-
-  img.profile {
-    position: absolute;
-    left:5px;
-  }
-
-  &.right {
-    padding: 10px 90px 10px 15px;
-    text-align: right;
-    img.profile {
-      left: auto;
-      right:5px;
-    }
-  }
 }

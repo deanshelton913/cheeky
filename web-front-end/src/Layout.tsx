@@ -1,6 +1,7 @@
 /*global FB*/
 import React from 'react';
 import './Layout.scss';
+import { SpeechBubble } from 'speech-bubble';
 
 interface MyProps {
 
@@ -22,45 +23,30 @@ export class Layout extends React.Component<MyProps, MyState> {
     })
   }
 
+
   render = () =>
     <div className="layout">
       <header>
-        <div className="settings-gear">
-          <img src="./gear.svg" alt="settings" />
-        </div>
-        <div className="logo"></div>
         <div className="account">
           <a href="/me">
-            <img className="profile" src="./test.png" alt="account"/>
+            <img className="profile" src="./test2.png" alt="account"/>
+          </a>
+        </div>
+        <div className="logo"></div>
+        <div className="chats">
+          <a href="/me">
+            <img src="./speech-bubble.svg" alt="chats" />
           </a>
         </div>
       </header>
       <main>
-        <div className="speech-bubble">
-          <img className="profile" src="./test.png" alt="account"/>
-          <p>Testing, testing</p>
-        </div>
-        <div className="speech-bubble right">
-          <img className="profile" src="./test.png" alt="account"/>
-          <p>Testing one two three.</p>
-        </div>
-        <div className="speech-bubble">
-          <img className="profile" src="./test.png" alt="account"/>
-          <p>I am a chat bubble</p>
-        </div>
-        <div className="speech-bubble">
-          <img className="profile" src="./test.png" alt="account"/>
-          <p>I am a chat bubble</p>
-        </div>
-        <div className="speech-bubble">
-          <img className="profile" src="./test.png" alt="account"/>
-          <p>I am a chat bubble</p>
-        </div>
-        <div className="speech-bubble">
-          <img className="profile" src="./test.png" alt="account"/>
-          <p>I am a chat bubble</p>
-        </div>
-
+        <SpeechBubble text="Testing Bananas" profileImage="./test.png" me />
+        <SpeechBubble text="I'm testing." profileImage="./test2.png" />
+        <SpeechBubble text="Dude" profileImage="./test.png" me />
+        <SpeechBubble text="Testing Bananas" profileImage="./test.png"/>
+        <SpeechBubble text="Testing Bananas" profileImage="./test.png"/>
+        <SpeechBubble text="Testing Bananas" profileImage="./test.png"/>
+        <SpeechBubble text="Dude, Shut up" profileImage="./test.png" me />
       </main>
       <div className="input">
         <input type="text" />
