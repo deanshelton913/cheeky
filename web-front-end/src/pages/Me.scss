@@ -1,3 +1,41 @@
-ul.list {
+.me-page   {
+  font-size: 1em;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
+  .header {
+    flex:1
+  }
+  .images {
+    flex: 1;
+    .profile-picture {
+      height: 200px;
+      width: 200px;
+      margin: 0 auto;
+    }
+  }
+  .prefrences {
+    flex: 2;
+  }
+  .bio-title {
+    background-color: #fff;
+    margin: 0;
+    border-bottom: 1px solid black;
+    padding: 10px 0;
+  }
+  .bio {
+    flex: 3;
+    display: flex;
+    textarea {
+      font-size: 1.1em;
+      padding: 1em;
+      width: 100%
+    }
+    button {
+      background-color: green;
+    }
+  }
 }

@@ -1,11 +1,40 @@
-img.profile {
-  overflow: hidden;
-  border-radius: 50%;
-  object-fit: cover;
-  height: 54px;
-  width: 54px;
-  border: 2px solid #280f41;
-  .clickable:hover {
+.profile-picture {
+  position: relative;
+  clip-path: circle(50% at 50% 50%);
+  margin: 0;
+  background-color: #000;
+  height: 64px;
+  width: 64px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  img {
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+    height: calc(100% - 7px);
+    width: calc(100% - 7px);
+    clip-path: circle(50% at 50% 50%);
+    .clickable:hover {
+      cursor: pointer;
+    }
+  }
+  .edit-menu {
+    position: absolute;
+    transition: all 2s ease-in;
+    bottom: -30px;
     cursor: pointer;
+
+    &.show {
+      bottom: 0;
+      text-align: center;
+      width: 100%;
+      color: white;
+      background-color: #000;
+      opacity:0.9;
+      padding: 10% 0;
+    }
   }
 }

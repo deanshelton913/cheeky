@@ -7,18 +7,22 @@ interface Props {
   className?: string;
   alt?: string;
   onClick?: MouseEventHandler;
+  editText?: string;
+  showEdit?: boolean;
+  onEditClick?: MouseEventHandler;
 }
 
 interface State {
-  classNames: any
+  classNames: any,
+  showEdit: boolean
 }
 
 export class ProfilePicture extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      showEdit: this.props.showEdit || false,
       classNames: {
-        profile: true,
         clickable: Boolean(this.props.onClick),
       }
     }
@@ -30,11 +34,19 @@ export class ProfilePicture extends React.PureComponent<Props, State> {
 
   defaultOnClick = () => {}
   render() {
-    return <img
-      className={cn(this.state.classNames)}
-      src={this.props.src || '/test.png'}
-      alt={this.props.alt || 'Profile Picture'}
-      onClick={this.props.onClick || this.defaultOnClick}
-    />
+    return <figure className="profile-picture">
+        <img
+        className={cn(this.state.classNames)}
+        src={this.props.src || '/test.png'}
+        alt={this.props.alt || 'Profile Picture'}
+        onClick={this.props.onClick || this.defaultOnClick}
+      />
+      <div
+        className={cn({'edit-menu': true, show: this.state.showEdit})}
+        onClick={this.props.onEditClick}
+      >
+        {this.props.editText || 'EDIT'}
+      </div>
+    </figure>
   }
 }
