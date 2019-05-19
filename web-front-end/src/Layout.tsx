@@ -1,7 +1,7 @@
 /*global FB*/
 import React   from 'react';
 import './Layout.scss';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { DirectMessage } from 'pages/DirectMessage';
 import { Welcome } from 'pages/Welcome';
 import { Navigation } from 'Navigation';
@@ -30,7 +30,6 @@ export class Layout extends React.Component<MyProps, MyState> {
 
 
   render = () =>
-  <BrowserRouter>
     <div className="layout">
       <header>
         <Navigation />
@@ -42,7 +41,6 @@ export class Layout extends React.Component<MyProps, MyState> {
         <Route path="/dms" component={DirectMessageList} />
       </main>
     </div>
-  </BrowserRouter>
 }
 
 export default Layout

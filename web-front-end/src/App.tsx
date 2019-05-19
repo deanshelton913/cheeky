@@ -3,6 +3,8 @@ import './App.scss';
 import { initFbApi, DomWindow } from './initFb';
 import Layout from './Layout';
 import CheekyClient from './data-access/cheeky-client';
+import { BrowserRouter } from 'react-router-dom';
+import { Login } from 'Login';
 const { Provider } = createContext({});
 
 interface MyProps {}
@@ -40,23 +42,16 @@ export class App extends React.Component<MyProps, MyState> {
 
   render () {
     return (
+    <BrowserRouter>
       <div className="app">
         <Provider value={{ state: this.state, }} >
           {this.state.isLoggedIn
             ? <Layout />
-            : <div className="logo-wrapper">
-                <div className="fb-login-button"
-                  data-width=""
-                  data-size="large"
-                  data-button-type="continue_with"
-                  data-auto-logout-link="true"
-                  data-use-continue-as="true"
-                  />
-              </div>
+            : <Login />
             }
         </Provider>
       </div>
-    );
+    </BrowserRouter>);
   }
 }
 

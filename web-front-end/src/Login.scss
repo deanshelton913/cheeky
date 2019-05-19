@@ -1,0 +1,35 @@
+
+.login-screen {
+  margin: 0 auto;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  background-image: url('/load-screen.png');
+  background-size: cover;
+  max-width: 400px;
+  background-position: 50%;
+  justify-content: space-evenly;
+  color: #fff;
+  text-shadow: 1px 1px 2px black;
+  .fb-login-button {
+    height:40px;
+    border:2px solid #fff;
+    width:253px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-family: "Pacifico";
+    font-size:3em;
+    margin: 0 auto;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .t-and-a {
+    font-size: 1em;
+    padding: 0 10px;
+  }
+}

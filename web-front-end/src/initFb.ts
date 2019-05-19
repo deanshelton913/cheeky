@@ -17,8 +17,10 @@ export const initFbApi = async () => {
         FB.AppEvents.logPageView();
 
         FB.getLoginStatus((response) => {
-          const { status, authResponse: {accessToken, userID} } = response
-          resolve({accessToken, userID, status});
+          if(response.authResponse){
+            const { status, authResponse: {accessToken, userID} } = response
+            resolve({accessToken, userID, status});
+          }
         });
       }
     } catch (e) {

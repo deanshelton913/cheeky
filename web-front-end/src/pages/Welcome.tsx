@@ -10,9 +10,6 @@ interface State {
 
 
 export class Welcome extends React.Component<Props, State> {
-  // constructor(props: Props) {
-  //   super(props);
-  // }
 
   render() {
     return (
