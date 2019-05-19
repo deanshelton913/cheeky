@@ -1,0 +1,46 @@
+.list {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  .item {
+    border-bottom: 1px solid grey;
+
+    a {
+      padding: 15px;
+      font-size: 1.5em;
+      display: flex;
+
+      .title, .tease, .timestamp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        .truncatedText {  // This is needed to get the elipsis within flexbox
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .title {
+        flex: 1;
+      }
+
+      .tease {
+        flex: 1.5;
+        font-size: 0.6em;
+        opacity: 0.5;
+      }
+
+      .timestamp {
+        text-align: right;
+        flex: 0.5;
+        opacity: 0.3;
+        font-size: 0.5em;
+      }
+    }
+  }
+}

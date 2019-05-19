@@ -1,0 +1,11 @@
+img.profile {
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 54px;
+  width: 54px;
+  border: 2px solid #280f41;
+  .clickable:hover {
+    cursor: pointer;
+  }
+}

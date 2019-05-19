@@ -1,9 +1,21 @@
+$font-family: 'Roboto', sans-serif;
 $blue1: #280f41;
 
 html, body, #root, .app {height: 100%}
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: $font-family;
+  textarea {
+    font-family: $font-family; // must target this directly :|
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    &:visited {
+      color: black;
+    }
+  }
 }
+
 .layout {
   font-size: 15px;
   height: 100%;
@@ -13,84 +25,21 @@ html {
   margin: 0 auto;
   background-color: #fff;
 
-  header {
-    display: flex;
-    border-bottom: 2px solid $blue1;
-    padding: 10px;
-
-
-    .account, .logo, .chats {
-      height: 64px;
-      justify-items: center;
-      flex: 1;
-      a {
-        display: block;
-      }
-    }
-
-
-    .account {
-      text-align: left;
-    }
-
-    .logo {
-      background: url("/logo.png") top center no-repeat;
-      background-size: contain;
-    }
-
-    .chats {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: right;
-
-      img {
-        overflow: hidden;
-        object-fit: cover;
-        height: 54px;
-        width: 54px;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
-  }
-
   main {
     flex: 4;
-    padding: 20px;
     overflow-y: scroll;
+    overflow-x: hidden;
     background-image: url("/chat-bg.jpg");
     background-size: cover;
   }
 }
 
-img.profile {
-  overflow: hidden;
-  border-radius: 50%;
-  object-fit: cover;
-  height: 54px;
-  width: 54px;
-  border: 2px solid $blue1;
-}
 
 @keyframes rotate-slightly {
   0%   { transform: rotate(90deg); }
   100% { transform: rotate(0deg); }
 }
 
-.input {
-  display: flex;
-  input {
-    padding: 5px 5px 5px 10px;
-    font-size: 1.1em;
-    flex: 4 1;
-  }
-  button {
-    flex: 1;
-  }
-}
 *:focus {
   outline: none;
 }

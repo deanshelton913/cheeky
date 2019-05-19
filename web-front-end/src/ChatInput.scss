@@ -1,0 +1,18 @@
+.chat-input {
+  border-top: 3px solid #ccc;
+  display: flex;
+  textarea {
+    padding: 1em;
+    font-size: 1.1em;
+    flex: 4 1;
+    margin: 0;
+    border: none;
+    resize: none;
+  }
+  button {
+    flex: 1;
+    cursor: pointer;
+    border: none;
+    background-color: #e7ffe7
+  }
+}

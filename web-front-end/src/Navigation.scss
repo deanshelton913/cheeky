@@ -1,0 +1,44 @@
+nav.navigation {
+  display: flex;
+  border-bottom: 2px solid #280f41;
+  padding: 10px;
+
+
+  .account, .logo, .chats {
+    height: 64px;
+    justify-items: center;
+    flex: 1;
+    a {
+      height: 100%;
+      display: block;
+    }
+  }
+
+
+  .account {
+    text-align: left;
+  }
+
+  .logo {
+    background: url("/logo.png") top center no-repeat;
+    background-size: contain;
+  }
+
+  .chats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+
+    img {
+      overflow: hidden;
+      object-fit: cover;
+      height: 54px;
+      width: 54px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
