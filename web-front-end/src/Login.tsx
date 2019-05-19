@@ -24,7 +24,7 @@ export class Login extends React.Component<Props, State> {
         data-width=""
         data-size="large"
         data-button-type="continue_with"
-        data-auto-logout-link="true"
+        data-auto-logout-link="false"
         data-use-continue-as="true"
         />
         <div className="t-and-a">

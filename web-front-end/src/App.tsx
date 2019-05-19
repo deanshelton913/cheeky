@@ -48,7 +48,7 @@ export class App extends React.Component<MyProps, MyState> {
           {this.state.isLoggedIn
             ? <Layout />
             : <Login />
-            }
+          }
         </Provider>
       </div>
     </BrowserRouter>);
