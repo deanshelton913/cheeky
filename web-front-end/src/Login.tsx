@@ -1,9 +1,12 @@
+/*global FB*/
 import React from 'react';
 import './Login.scss';
 import { Link } from 'react-router-dom';
 
 
 interface Props {
+  onLoginSuccess: CallableFunction
+  onLoginFailure: CallableFunction
 }
 
 interface State {
@@ -11,6 +14,15 @@ interface State {
 
 
 export class Login extends React.Component<Props, State> {
+  login = () => {
+    FB.login((response) => {
+      if (response.authResponse) {
+        this.props.onLoginSuccess(response)
+      } else {
+        this.props.onLoginFailure(response)
+      }
+    }, {scope: 'email,user_friends,user_photos,user_birthday'});
+  }
   render () {
     return (
     <div className="login-screen">
@@ -20,13 +32,9 @@ export class Login extends React.Component<Props, State> {
       <div className="t-and-a">
         By tapping login, you agree to our <Link to="/terms">Terms of Service</Link> and <Link to="/terms">Privacy Policy</Link>.
       </div>
-      <div className="fb-login-button"
-        data-width=""
-        data-size="large"
-        data-button-type="continue_with"
-        data-auto-logout-link="false"
-        data-use-continue-as="true"
-        />
+      <button
+      onClick={this.login}
+      className="button facebook">Login with Facebook</button>
         <div className="t-and-a">
           We don't post anything to Facebook.
         </div>

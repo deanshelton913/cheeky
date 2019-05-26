@@ -1,3 +1,4 @@
+@import '../light-theme';
 .me-page   {
   font-size: 1em;
   height: 100%;
@@ -6,36 +7,70 @@
   flex-direction: column;
   justify-content: center;
 
+  .top {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex:1;
+    background: url(/chat-bg.jpg);
+  }
+
+  .bottom {
+    flex:1;
+  }
+
   .header {
     flex:1
   }
+
   .images {
     flex: 1;
-    .profile-picture {
-      height: 200px;
-      width: 200px;
+    display: flex;
+
+    .primary {
+      flex:1;
+      .profile-picture {
+        height: 200px;
+        width: 200px;
+      }
+    }
+    .other {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 35px;
+      > .profile-picture {
+        margin-right: 0.5em;
+      }
+    }
+  }
+
+  .prefrences {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .button {
       margin: 0 auto;
     }
   }
-  .prefrences {
-    flex: 2;
-  }
+
   .bio-title {
-    background-color: #fff;
-    margin: 0;
-    border-bottom: 1px solid black;
-    padding: 10px 0;
+    border-top: 1px solid $subtle-border-color;
+    padding-top: 10px;
+    padding-left: 10px;
   }
+
   .bio {
     flex: 3;
     display: flex;
+
     textarea {
       font-size: 1.1em;
-      padding: 1em;
+      padding: 1em 0;
+      padding-left: 10px;
       width: 100%
-    }
-    button {
-      background-color: green;
     }
   }
 }

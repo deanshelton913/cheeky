@@ -29,6 +29,18 @@ nav.navigation {
     flex-direction: column;
     justify-content: center;
     text-align: right;
+    position: relative;
+    .notification {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      border: 1px solid red;
+      border-radius: 15px;
+      background-color: red;
+      color: white;
+      padding: 0 5px;
+      text-align: center;
+    }
 
     img {
       overflow: hidden;

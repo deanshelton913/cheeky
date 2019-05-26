@@ -1,20 +1,25 @@
 import React, { createContext } from 'react';
 import './App.scss';
-import { initFbApi, DomWindow } from './initFb';
+import { initFbApi } from './initFb';
 import Layout from './Layout';
 import CheekyClient from './data-access/cheeky-client';
 import { BrowserRouter } from 'react-router-dom';
 import { Login } from 'Login';
-const { Provider } = createContext({});
+import { LoadingSpinner } from 'LoadingSpinner';
+
+export const AppContext = createContext({} as AppState);
+
 
 interface MyProps {}
-interface MyState {
+export interface AppState {
   isLoading: boolean;
   isLoggedIn: boolean;
-  cheekyClient?: CheekyClient
+  cheekyClient?: CheekyClient;
+  userID?: number;
+  accessToken?: string;
 }
 
-export class App extends React.Component<MyProps, MyState> {
+export class App extends React.Component<MyProps, AppState> {
   constructor(props: any) {
     super(props);
 
@@ -22,34 +27,47 @@ export class App extends React.Component<MyProps, MyState> {
       isLoading: true,
       isLoggedIn: false,
       cheekyClient: undefined,
+      userID: undefined,
     }
   }
 
-  componentDidMount = async () => {
-    const {accessToken, userID, status} = await initFbApi() as any;
-    this.setState({
-      cheekyClient: new CheekyClient(accessToken, userID),
-      isLoading: false,
-      isLoggedIn: (status === 'connected')
-    }, () => {
-      console.log('updated...', this.state.isLoggedIn)
-    })
+  onLoginSuccess = (response: any) => {
+    const { status, authResponse: { userID, accessToken } } = response;
+    const cheekyClient = new CheekyClient(accessToken, userID);
+    const isLoading = false;
+    const isLoggedIn = (status === 'connected');
+    this.setState({ accessToken, cheekyClient, isLoading, isLoggedIn, userID })
   }
 
-  componentDidUpdate = () => {
-    (window as DomWindow).fbAsyncInit()
+  onLoginFailure = () => {
+    console.log('login-fail')
+    const isLoading = false;
+    const isLoggedIn = false;
+    this.setState({ isLoading, isLoggedIn })
+  }
+
+
+  componentDidMount = async () => {
+    try {
+      const response = await initFbApi() as any;
+      this.onLoginSuccess(response);
+    } catch (e) {
+      this.onLoginFailure()
+    }
   }
 
   render () {
     return (
     <BrowserRouter>
       <div className="app">
-        <Provider value={{ state: this.state, }} >
-          {this.state.isLoggedIn
+        <AppContext.Provider value={{ ...this.state }} >
+          {this.state.isLoading
+          ? <LoadingSpinner />
+          : this.state.isLoggedIn
             ? <Layout />
-            : <Login />
+            : <Login onLoginFailure={this.onLoginFailure} onLoginSuccess={this.onLoginSuccess} />
           }
-        </Provider>
+        </AppContext.Provider>
       </div>
     </BrowserRouter>);
   }

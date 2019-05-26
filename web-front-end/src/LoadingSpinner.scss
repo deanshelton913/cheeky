@@ -1,0 +1,18 @@
+.loading-spinner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10; // always on-top.
+  background-color: #240e44;
+  color: #fe1763;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

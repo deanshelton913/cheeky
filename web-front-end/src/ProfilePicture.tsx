@@ -1,6 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import './ProfilePicture.scss'
 import cn from 'classnames';
+import { Link } from 'react-router-dom';
 
 interface Props {
   src: string;
@@ -9,7 +10,7 @@ interface Props {
   onClick?: MouseEventHandler;
   editText?: string;
   showEdit?: boolean;
-  onEditClick?: MouseEventHandler;
+  linkTo?: string;
 }
 
 interface State {
@@ -34,19 +35,22 @@ export class ProfilePicture extends React.PureComponent<Props, State> {
 
   defaultOnClick = () => {}
   render() {
-    return <figure className="profile-picture">
+    return (
+      <figure className="profile-picture">
         <img
         className={cn(this.state.classNames)}
         src={this.props.src || '/test.png'}
         alt={this.props.alt || 'Profile Picture'}
         onClick={this.props.onClick || this.defaultOnClick}
       />
-      <div
-        className={cn({'edit-menu': true, show: this.state.showEdit})}
-        onClick={this.props.onEditClick}
-      >
+      {this.props.linkTo &&
+      <Link
+        to={this.props.linkTo}
+        className='edit-menu show'>
         {this.props.editText || 'EDIT'}
-      </div>
-    </figure>
+      </Link>
+
+      }
+    </figure>)
   }
 }

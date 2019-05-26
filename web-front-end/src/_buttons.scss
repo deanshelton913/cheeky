@@ -1,0 +1,36 @@
+.button {
+  background: $blue;
+  background-image: linear-gradient(to bottom, $blue, $blue-muted);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: 1px solid grey;
+  &:hover {
+    background: $blue-hover;
+    background-image: linear-gradient(to bottom, $blue-hover, $blue);
+    text-decoration: none;
+  }
+  &.warning {
+    background-image: linear-gradient(to bottom, $red-muted, $red);
+    &:hover {
+      background: $red-hover;
+      background-image: linear-gradient(to bottom, $red-hover, $red);
+      text-decoration: none;
+    }
+  }
+  &.success {
+    background-image: linear-gradient(to bottom, $green, $green-muted);
+    &:hover {
+      background: $green-hover;
+      background-image: linear-gradient(to bottom, $green-hover, $green);
+    }
+  }
+  &.small {
+    max-width: 160px;
+  }
+}

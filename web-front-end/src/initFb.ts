@@ -1,3 +1,5 @@
+import { FailureByDesign } from "FailureByDesign";
+
 /*global FB*/
 export interface DomWindow extends Window {
   fbAsyncInit: Function;
@@ -17,9 +19,13 @@ export const initFbApi = async () => {
         FB.AppEvents.logPageView();
 
         FB.getLoginStatus((response) => {
+          console.log('Checking logged in status....')
           if(response.authResponse){
-            const { status, authResponse: {accessToken, userID} } = response
-            resolve({accessToken, userID, status});
+            console.log('...logged in')
+            return resolve(response);
+          } else {
+            console.log('...not logged in')
+            return reject(new FailureByDesign('UNAUTHORIZED', 'facebook authentication required'))
           }
         });
       }

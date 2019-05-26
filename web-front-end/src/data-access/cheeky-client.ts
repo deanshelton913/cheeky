@@ -40,8 +40,8 @@ export default class CheekyClient {
     }
     const url = `${this.baseUrl}${path}`
     this.logger.debug(`${method} -> ${url}`)
-    const result = this.fetch(url, { method, body, headers });
-    this.logger.debug(`${method} <- ${result.status} ${url}`);
+    const result = await this.fetch(url, { method, body, headers });
+    this.logger.debug(`${method} <- ${result} ${url}`);
   }
 }
 

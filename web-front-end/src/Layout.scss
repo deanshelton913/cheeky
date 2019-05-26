@@ -1,24 +1,9 @@
-$font-family: 'Roboto', sans-serif;
-$blue1: #280f41;
+@import 'light-theme';
 
 html, body, #root, .app {height: 100%}
-html {
-  font-family: $font-family;
-  textarea {
-    font-family: $font-family; // must target this directly :|
-  }
-  a {
-    color: #fff;
-    &:visited {
-      color: #fff;
-    }
-  }
-}
 
 .layout {
-  font-size: 15px;
   height: 100%;
-  max-width: 480px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -28,7 +13,6 @@ html {
     flex: 4;
     overflow-y: scroll;
     overflow-x: hidden;
-    background-image: url("/chat-bg.jpg");
     background-size: cover;
   }
 }

@@ -26,6 +26,7 @@ export class Navigation extends React.Component<Props, State> {
           </Link>
         </div>
         <div className="chats">
+          <div className="notification">2000</div>
           <Link to="/dms">
             <img src="/speech-bubble.svg" alt="chats" />
           </Link>
