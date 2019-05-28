@@ -13,7 +13,7 @@ export class User extends DataAccess {
   public bio: string;
   public id: number;
 
-  constructor(name: string, dob: number, pictures: string[], bio: string, id: number) {
+  constructor(name: string, dob: number, pictures: string[], bio: string, id?: number) {
     super();
     this.id = id;
     this.name = name;

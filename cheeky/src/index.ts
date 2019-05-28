@@ -8,11 +8,13 @@ import { allowCrossDomain } from './middleware/crossDomain';
 import { logRequests } from './middleware/logRequests';
 import api from './router/api';
 
+var bodyParser = require('body-parser')
 const HTTP_PORT = process.env.HTTP_PORT || 8080;
 const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 8081;
 
 // Express Server
 const expressApp = express();
+expressApp.use(bodyParser.json())
 expressApp.use(require('cookie-parser')());
 expressApp.use(logRequests);
 expressApp.use(allowCrossDomain);

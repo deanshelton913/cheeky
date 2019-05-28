@@ -1,5 +1,14 @@
 .facebook-photo-selector {
   position: relative;
+  display: flex;
+  justify-content: center;
+
+  .done.button {
+      position: fixed;
+    bottom: 10px;
+    z-index: 3;
+    min-width: 370px;
+  }
   .loading {
     height: 64px;
     text-align: center;
@@ -25,6 +34,8 @@
   }
 
   .selectable-photos {
+    background: #5a5a5a;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 0px;
@@ -32,7 +43,7 @@
 
     figure {
       overflow: hidden;
-      max-height: 100px;
+      height: 100px;
       display: flex;
       justify-content: center;
       flex-direction: column;
@@ -51,12 +62,6 @@
     }
   }
 
-  .done.button {
-    position: fixed;
-    bottom: 10px;
-    width: 100%;
-    z-index: 3;
-  }
 }
 
 @keyframes bounce {

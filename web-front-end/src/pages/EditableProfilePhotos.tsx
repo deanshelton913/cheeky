@@ -3,19 +3,16 @@ import './EditableProfilePhotos.scss';
 import { ProfilePicture } from 'ProfilePicture';
 import { FacebookPhotoSelector } from './FacebookPhotoSelector';
 
-export interface ProfileImage {
-  src: string;
-}
 
 interface Props {
-  images?: ProfileImage[];
-  imageIndexUnderEdit?: number;
-  onImageChange: (images: ProfileImage[]) => void
+  images?: string[];
+  onImageChange: (images: string[]) => void
+  onFacebookFormToggle: () => void
 }
 
 interface State {
-  images: ProfileImage[];
-  imageIndexUnderEdit?: number;
+  images: string[];
+  showFacebookPhotoSelector: boolean;
 }
 
 
@@ -24,30 +21,52 @@ export class EditableProfilePhotos extends React.Component<Props, State> {
     super(props);
     this.state = {
       images: this.props.images || [],
-      imageIndexUnderEdit: this.props.imageIndexUnderEdit,
+      showFacebookPhotoSelector: false
     }
   }
 
-  toggleEdit = (imageIndex: number) => {
-    console.log('now-editing', imageIndex)
-    this.setState({ imageIndexUnderEdit: imageIndex })
+  toggleFacebookImageStream = () => {
+    this.setState({ showFacebookPhotoSelector: true }, () => {
+      this.props.onFacebookFormToggle()
+    })
+  }
+
+  removePhoto(index: number) {
+    const images = this.state.images.slice(0);
+    images.splice(index, 1);
+    this.setImages(images);
+  }
+
+  setImages(images: string[]) {
+    this.setState({images}, () => {
+      this.props.onImageChange(images)
+    })
   }
 
   getProfilePicture = (index: number) => {
     const { images } = this.state;
-    const src = (images[index] ? images[index].src : undefined)
-    const onClick = () => this.toggleEdit(index);
-    return <ProfilePicture src={src} key={String(src)+index} onClick={onClick} />
+    const src = (images[index] ? images[index] : undefined)
+    const onClick = src
+      ? () => this.removePhoto(index)
+      : this.toggleFacebookImageStream
+    return <ProfilePicture
+      src={src}
+      key={String(src)+index}
+      onClick={onClick} />
   }
 
-  onFacebookImageSelect = (images: Set<string>) => {
-    console.log('Facebook Image selected for profile image', images)
+  onFacebookImageSelect = (newImages: string[]) => {
+    const clone = this.state.images.slice(0)
+    const images = clone.concat(newImages);
+    this.setState({images, showFacebookPhotoSelector: false}, () => {
+      this.props.onImageChange(images)
+      this.props.onFacebookFormToggle()
+    })
   }
 
   render() {
     const primaryImage = this.getProfilePicture(0);
     const otherImages = [1,2,3,4].map(i => this.getProfilePicture(i))
-    const { imageIndexUnderEdit } = this.state;
     return (
     <div className="editable-profile-photos">
       <div className="images">
@@ -55,10 +74,10 @@ export class EditableProfilePhotos extends React.Component<Props, State> {
         <div className="other">{otherImages}</div>
       </div>
       <div className="edit">
-        {imageIndexUnderEdit !== undefined
+        {this.state.showFacebookPhotoSelector
           && <FacebookPhotoSelector
             onSelect={this.onFacebookImageSelect}
-            selectionAllotment={this.state.images.length-5}
+            selectionAllotment={5-this.state.images.length}
           />}
       </div>
     </div>

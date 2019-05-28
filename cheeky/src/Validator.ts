@@ -18,6 +18,14 @@ export class Validator {
     return { gender, radius, lat, lon, units, owner };
   }
 
+  public static validateUserCreate = (data: any) => {
+    if(!ajv.validate(validateUserCreateSchema, data)){
+      throw new FailureByDesign('BAD_REQUEST', `User creation input is invalid. ${ajv.errorsText()}`);
+    }
+    console.log(data)
+    return { images: (data.images as string[]) };
+  }
+
   public static validateChannelListQuery(data: any) {
     if(!ajv.validate(validateChannelListQuerySchema, data)) {
       throw new FailureByDesign('BAD_REQUEST', `Channel list query is invalid. ${ajv.errorsText()}`);
@@ -48,6 +56,18 @@ const validateChannelCreateSchema = {
     "owner": { "type": "string" },
   },
   "required": ["radius", "gender", "lat", "lon", "units", "owner"]
+};
+
+const validateUserCreateSchema = {
+  "properties": {
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+  },
+  "required": ["images"]
 };
 
 const validateChannelListQuerySchema = {

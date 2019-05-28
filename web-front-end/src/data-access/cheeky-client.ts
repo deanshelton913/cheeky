@@ -41,14 +41,14 @@ export default class CheekyClient {
     return this.makeRequest('DELETE', path);
   }
 
-  private async makeRequest (method: string, path: string, body?: BodyInit) {
+  private async makeRequest (method: string, path: string, body?: any) {
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.facebookId}:${this.facebookAccessToken}`,
     }
     const url = `${this.baseUrl}${path}`;
     this.logger.debug(`${method} -> ${url}`);
-    const result = await this.fetch(url, { method, headers, body });
+    const result = await this.fetch(url, { method, headers, body: JSON.stringify(body) });
     this.logger.debug(`${method} <- ${result} ${url}`);
     return result;
   }
@@ -58,7 +58,12 @@ const cheekyServiceConfig: CheekyServiceConfig = {
   "development": {
     "http": "http://localhost:8080",
     "websocket": "http://localhost:8081"
-  }
+  },
+  "production": {
+    "http": "http://localhost:8080",
+    "websocket": "http://localhost:8081"
+  },
+
 }
 
 interface CheekyServiceConfig {

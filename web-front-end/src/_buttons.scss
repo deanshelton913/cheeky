@@ -30,6 +30,12 @@
       background-image: linear-gradient(to bottom, $green-hover, $green);
     }
   }
+  &.disabled {
+    background-image: linear-gradient(to bottom, #808080, #424141);
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
   &.small {
     max-width: 160px;
   }

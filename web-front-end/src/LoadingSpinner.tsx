@@ -1,7 +1,6 @@
 import React from 'react';
 import './LoadingSpinner.scss';
 
-
 interface Props {
 }
 
@@ -10,7 +9,6 @@ interface State {
   interval?: NodeJS.Timeout;
 }
 
-
 export class LoadingSpinner extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -18,24 +16,11 @@ export class LoadingSpinner extends React.Component<Props, State> {
       tooLong: false,
     }
   }
-  componentWillUnmount = () => {
-    if(this.state.interval) {
-      clearTimeout(this.state.interval)
-    }
-  }
-
-  componentDidMount = () => {
-    this.setState({
-      interval: setTimeout(() => {
-      this.setState({ tooLong: true })
-    }, 5000)})
-
-  }
 
   render() {
     return (
       <div className="loading-spinner">
-        <figure><img src="/loading.gif" alt="loading"/></figure>
+        Loading...
         {this.state.tooLong &&
         <div>
           <p>This page is taking too long to load. Sorry!</p>

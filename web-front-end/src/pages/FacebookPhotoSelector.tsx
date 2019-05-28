@@ -5,13 +5,13 @@ import BottomScrollListener from 'react-bottom-scroll-listener'
 import SelectableImage from 'SelectableImage';
 
 interface Props {
-  onSelect: (selectedPhotos: Set<string>) => void
+  onSelect: (selectedPhotos: string[]) => void
   selectionAllotment: number
 }
 
 interface State {
   photoStream: string[]
-  selected: Set<string>
+  selected: string[]
   next?: string
   preview?: string
   isLoading: boolean
@@ -24,7 +24,7 @@ export class FacebookPhotoSelector extends React.Component<Props, State> {
     super(props)
     this.state = {
       photoStream: [],
-      selected: new Set(),
+      selected: [],
       next: undefined,
       preview: undefined,
       isLoading: false,
@@ -54,18 +54,19 @@ export class FacebookPhotoSelector extends React.Component<Props, State> {
   }
 
   done = () => {
+    // do any cleanup? Remove if not.
     this.props.onSelect(this.state.selected)
   }
 
 
   imageClickHandler = (src: string) => {
-    this.state.selected.has(src) ? this.removeImage(src) : this.addImage(src);
+    this.state.selected.indexOf(src) >= 0 ? this.removeImage(src) : this.addImage(src);
   }
 
   addImage = (src: string) => {
-    const selected = new Set(this.state.selected)
-    if(selected.size < 5) {
-      selected.add(src);
+    const selected = this.state.selected.slice(0);
+    if(selected.length < this.props.selectionAllotment) {
+      selected.push(src);
       this.setState({selected})
     }
   }
@@ -79,8 +80,8 @@ export class FacebookPhotoSelector extends React.Component<Props, State> {
   }
 
   removeImage = (src: string) => {
-    const selected = new Set(this.state.selected)
-    selected.delete(src)
+    const selectedClone = this.state.selected.slice(0);
+    const selected = selectedClone.filter((i) => i !== src)
     this.setState({selected})
   }
 
@@ -93,7 +94,7 @@ export class FacebookPhotoSelector extends React.Component<Props, State> {
           {[...photoStream].map(src => (
             <SelectableImage
               key={src}
-              isSelected={selected.has(src)}
+              isSelected={selected.findIndex((i) => i === src) > -1}
               onClick={() => this.imageClickHandler(src)}
               selectedIndex={[...selected].indexOf(src)}
               holdGestureCallback={this.previewImage}
@@ -101,26 +102,19 @@ export class FacebookPhotoSelector extends React.Component<Props, State> {
             />
           ))}
           {this.next && <BottomScrollListener onBottom={this.next} />}
-          <button
-            className="button success done"
-            onClick={this.done}>Done</button>
           {isLoading
             ? <div className="loading">loading...</div>
             : <div className="more">&#8675;</div>
           }
         </div>
+
+        <button
+            className="button success done"
+            onClick={this.done}>Done</button>
     </div>
     )
   }
 }
-
-
-
-
-
-
-
-
 
 interface ImagePreviewProps {
   src: string;
