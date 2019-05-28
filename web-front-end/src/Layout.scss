@@ -1,6 +1,14 @@
 @import 'light-theme';
 
-html, body, #root, .app {height: 100%}
+html, body, #root, .app {
+  height: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+figure {
+  margin: 0;
+  padding: 0;
+}
 
 .layout {
   height: 100%;

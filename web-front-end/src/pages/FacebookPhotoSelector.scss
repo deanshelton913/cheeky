@@ -1,0 +1,66 @@
+.facebook-photo-selector {
+  position: relative;
+  .loading {
+    height: 64px;
+    text-align: center;
+    font-size: 2em;
+    font-family: Pacifico;
+    grid-column: 1/-1;
+    color: #fff;
+  }
+  .image-preview {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    img {
+      width: 100%;
+    }
+  }
+
+  .selectable-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 0px;
+    padding-bottom: 40px;
+
+    figure {
+      overflow: hidden;
+      max-height: 100px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .more {
+      font-size: 5em;
+      animation: bounce 2s ease-in-out infinite;
+      display: flex;
+      grid-column: 1/-1;
+      justify-content: center;
+      color: #fff;
+    }
+  }
+
+  .done.button {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    z-index: 3;
+  }
+}
+
+@keyframes bounce {
+  0% {transform: translateY(0);}
+  50% {transform: translateY(-10px);}
+  100% {transform: translateY(0);}
+}

@@ -6,6 +6,7 @@ import CheekyClient from './data-access/cheeky-client';
 import { BrowserRouter } from 'react-router-dom';
 import { Login } from 'Login';
 import { LoadingSpinner } from 'LoadingSpinner';
+import Register from './pages/Register';
 
 export const AppContext = createContext({} as AppState);
 
@@ -17,6 +18,7 @@ export interface AppState {
   cheekyClient?: CheekyClient;
   userID?: number;
   accessToken?: string;
+  hasCheekyAccount?: boolean;
 }
 
 export class App extends React.Component<MyProps, AppState> {
@@ -28,15 +30,17 @@ export class App extends React.Component<MyProps, AppState> {
       isLoggedIn: false,
       cheekyClient: undefined,
       userID: undefined,
+      hasCheekyAccount: undefined,
     }
   }
 
-  onLoginSuccess = (response: any) => {
+  onLoginSuccess = async (response: any) => {
     const { status, authResponse: { userID, accessToken } } = response;
     const cheekyClient = new CheekyClient(accessToken, userID);
+    const hasCheekyAccount = await cheekyClient.profileExists()
     const isLoading = false;
     const isLoggedIn = (status === 'connected');
-    this.setState({ accessToken, cheekyClient, isLoading, isLoggedIn, userID })
+    this.setState({ hasCheekyAccount, accessToken, cheekyClient, isLoading, isLoggedIn, userID })
   }
 
   onLoginFailure = () => {
@@ -56,16 +60,31 @@ export class App extends React.Component<MyProps, AppState> {
     }
   }
 
+  onRegistrationSuccess = () => {
+
+  }
+
+  onRegistrationFailure = () => {
+
+  }
+
   render () {
     return (
     <BrowserRouter>
       <div className="app">
         <AppContext.Provider value={{ ...this.state }} >
           {this.state.isLoading
-          ? <LoadingSpinner />
+          ? <LoadingSpinner /> // is loading
           : this.state.isLoggedIn
-            ? <Layout />
-            : <Login onLoginFailure={this.onLoginFailure} onLoginSuccess={this.onLoginSuccess} />
+            ? this.state.hasCheekyAccount
+              ? <Layout /> // LoggedIn=True & Registered=True
+              : <Register // LoggedIn=True & Registered=False
+                  onRegistrationSuccess={this.onRegistrationSuccess}
+                  onRegistrationFailure={this.onRegistrationFailure} />
+            : <Login // LoggedIn=False
+                onLoginFailure={this.onLoginFailure}
+                onLoginSuccess={this.onLoginSuccess}
+                />
           }
         </AppContext.Provider>
       </div>

@@ -4,53 +4,47 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 interface Props {
-  src: string;
+  src?: string;
   className?: string;
   alt?: string;
   onClick?: MouseEventHandler;
   editText?: string;
-  showEdit?: boolean;
   linkTo?: string;
 }
 
 interface State {
   classNames: any,
-  showEdit: boolean
 }
 
 export class ProfilePicture extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      showEdit: this.props.showEdit || false,
       classNames: {
-        clickable: Boolean(this.props.onClick),
+        'profile-picture': true,
+        'empty': !Boolean(this.props.src),
       }
     }
 
-    if(this.props.className){
+    if(this.props.className) {
       this.state.classNames[this.props.className] = true;
     }
   }
 
-  defaultOnClick = () => {}
+  defaultOnClick = () => {console.log('defaultonclick')}
   render() {
-    return (
-      <figure className="profile-picture">
-        <img
-        className={cn(this.state.classNames)}
-        src={this.props.src || '/test.png'}
-        alt={this.props.alt || 'Profile Picture'}
-        onClick={this.props.onClick || this.defaultOnClick}
-      />
-      {this.props.linkTo &&
-      <Link
-        to={this.props.linkTo}
-        className='edit-menu show'>
-        {this.props.editText || 'EDIT'}
-      </Link>
+    const img = this.props.src ? <img
+      src={this.props.src}
+      alt={this.props.alt || 'Profile Picture'}
+    /> : undefined
 
-      }
+    return (
+      <figure
+        onClick={this.props.onClick || this.defaultOnClick}
+        className={cn(this.state.classNames)}>
+      {this.props.linkTo
+        ? <Link to={this.props.linkTo}>{img}</Link>
+        : img}
     </figure>)
   }
 }

@@ -1,0 +1,66 @@
+@import '../light-theme';
+
+.editable-profile-photos {
+  .images {
+    display: grid;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+    .primary {
+      display: block;
+      a {
+        display: block;
+      }
+    }
+    .other {
+      flex: 1 1;
+      display: grid;
+      grid-column-gap: 0;
+      grid-row-gap: 0;
+      grid-template-columns: 100px 100px;
+      grid-template-rows: 100px 100px;
+      max-height: 200px;
+      max-width: 400px;
+      > .profile-picture {
+        height: 100px;
+        width: 100px;
+      }
+    }
+
+    .profile-picture {
+      cursor: pointer;
+      width: auto;
+      overflow: hidden;
+      height: 200px;
+      object-position: center;
+      position: relative;
+
+      &::after {
+        position: absolute;
+        content: "edit";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0.3;
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 3em;
+        font-family: Pacifico;
+        color: white;
+        text-align: center;
+        line-height: 1em;
+      }
+      &.empty::after {
+        content: "+";
+        border: 2px dashed #fff;
+      }
+    }
+  }
+}
+

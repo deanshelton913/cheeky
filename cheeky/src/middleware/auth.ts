@@ -1,16 +1,23 @@
 import fetch from 'node-fetch';
-import { FailureByDesign } from "../FailureByDesign";
+import { FailureByDesign } from '../FailureByDesign';
+import globalErrorHandler from './errorHandler';
 
-export const authMiddleware = (req, _res, next) => {
-  console.log('PROTECTED HIT', req.headers)
-  if(!req.headers || !req.headers.authorization) {
-    throw new FailureByDesign('UNAUTHORIZED', 'Missing Facebook auth token')
-  } else {
-    const [id, token] = req.headers.authorization.split(' ');
-    console.log(`FB -> https://graph.facebook.com/${id}/access_token=${token}`)
-    fetch.get(`https://graph.facebook.com/${id}/access_token=${token}`)
-      .then((x) => console.log('FB <- ', x))
-      .then(() => next())
-      .catch(console.error)
+export const authMiddleware = async (req, res, next) => {
+  try {
+    if(!req.headers || !req.headers.authorization) {
+      throw new FailureByDesign('UNAUTHORIZED', 'Missing Facebook auth token')
+    } else {
+      const [userID, accessToken] = req.headers.authorization.split(' ')[1].split(':');
+      const fbResponse = await fetch(`https://graph.facebook.com/${userID}?access_token=${accessToken}`)
+      if(fbResponse.status === 200) {
+        req.userID = userID;
+        req.accessToken = accessToken;
+        next();
+      } else {
+        throw new FailureByDesign('UNAUTHORIZED', 'Facebook token did not validate.');
+      }
+    }
+  } catch (e) {
+    globalErrorHandler(e, req, res, next)
   }
 }

@@ -16,8 +16,6 @@ export class Welcome extends React.Component<Props, State> {
     <section className="welcome-page">
       <button className="create button success">Create</button>
       <button className="find button">Search</button>
-      <div className="divider"></div>
-      <button className="create button">Curate</button>
     </section>
     )
  }

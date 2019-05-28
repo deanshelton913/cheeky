@@ -23,6 +23,7 @@ export class Navigation extends React.Component<Props, State> {
         </div>
         <div className="logo">
           <Link to="/">
+            <img src="/logo2.png" alt="Logo" />
           </Link>
         </div>
         <div className="chats">

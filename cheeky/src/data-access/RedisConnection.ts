@@ -9,6 +9,7 @@ export interface PromisifiedRedis extends RedisClient {
   hgetallAsync: (key: string) => Promise<any>
   geoaddAsync: (key: string, lon: number, lat:number, member: string) => Promise<any>
   georadiusAsync: (key: string, lon: number, lat:number, radius: number, units: Units) => Promise<any>
+  hexistsAsync: (key: string, field: string) => Promise<any>
   hdelAsync: (key: string) => Promise<any>
   zremAsync: (key: string, member: string) => Promise<any>
 }

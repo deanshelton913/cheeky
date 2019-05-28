@@ -1,8 +1,8 @@
+@import 'typography';
+
 nav.navigation {
   display: flex;
-  border-bottom: 2px solid #280f41;
-  padding: 10px;
-
+  border-bottom: 3px solid #b8732d;
 
   .account, .logo, .chats {
     height: 64px;
@@ -14,14 +14,20 @@ nav.navigation {
     }
   }
 
-
   .account {
     text-align: left;
   }
 
   .logo {
-    background: url("/logo.png") top center no-repeat;
     background-size: contain;
+    font-family: $logo-font;
+    display: flex;
+    justify-content: center;
+    img {
+      max-width: 100%;
+      max-height:100%;
+    }
+
   }
 
   .chats {
@@ -32,8 +38,8 @@ nav.navigation {
     position: relative;
     .notification {
       position: absolute;
-      top: -5px;
-      right: -5px;
+      top: 5px;
+      right: 5px;
       border: 1px solid red;
       border-radius: 15px;
       background-color: red;
@@ -47,6 +53,7 @@ nav.navigation {
       object-fit: cover;
       height: 54px;
       width: 54px;
+      padding: 5px;
 
       &:hover {
         cursor: pointer;

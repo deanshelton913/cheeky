@@ -13,6 +13,7 @@
     "node-fetch": "^2.5.0",
     "node-sass-chokidar": "^1.3.4",
     "react": "^16.8.6",
+    "react-bottom-scroll-listener": "^2.1.2",
     "react-click-n-hold": "^1.0.7",
     "react-dom": "^16.8.6",
     "react-draggable": "^3.3.0",

@@ -11,6 +11,7 @@ interface SurfaceError {
  * Purpose: Handle all surface errors in a single place.
  */
 export default function globalErrorHandler(err: Error | FailureByDesign, _req: any, res: express.Response, _next: express.NextFunction){
+  console.log('ERROR', err)
   const surfaceResponse = getSurfaceError(err);
   res.status(surfaceResponse.statusCode).send({ error: surfaceResponse.error })
 }

@@ -7,7 +7,7 @@ import { Welcome } from 'pages/Welcome';
 import { Navigation } from 'Navigation';
 import { DirectMessageList } from 'pages/DirectMessageList';
 import { Me } from 'pages/Me';
-import { MeEdit } from 'pages/MeEdit';
+import Register from 'pages/Register';
 
 interface MyProps {
 
@@ -38,7 +38,7 @@ export class Layout extends React.Component<MyProps, MyState> {
       <main>
         <Route path="/" exact component={Welcome} />
         <Route path="/me" exact component={Me} />
-        <Route path="/me/edit" exact component={MeEdit} />
+        <Route path="/register" exact component={Register} />
         <Route path="/dm/:uid" component={DirectMessage} />
         <Route path="/dms" component={DirectMessageList} />
       </main>
