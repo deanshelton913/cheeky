@@ -10,7 +10,7 @@
     "classnames": "^2.2.6",
     "fb": "^2.0.0",
     "hammerjs": "^2.0.8",
-    "node-fetch": "^2.5.0",
+    "node-fetch": "^2.6.7",
     "node-sass-chokidar": "^1.3.4",
     "react": "^16.8.6",
     "react-bottom-scroll-listener": "^2.1.2",
